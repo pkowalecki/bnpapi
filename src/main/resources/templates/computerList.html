@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:switch="${computersModels}">
+    <h2 th:case="null">No computers yet!</h2>
+    <div th:case="*">
+        <h2>Computers</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nazwa</th>
+                <th>Data zaksięgowania</th>
+                <th>Cena USD</th>
+                <th>Cena PLN</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each ="computersModel : ${computersModels}">
+                <td th:text="${computersModel.getId()}"></td>
+                <td th:text="${computersModel.getName()}"></td>
+                <td th:text="${computersModel.getDateAccounting()}"></td>
+                <td th:text="${computersModel.getPriceUSD()}"></td>
+                <td th:text="${computersModel.getPricePLN()}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+</body>
+</html>
