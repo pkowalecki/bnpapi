@@ -1,32 +1,38 @@
 package pl.kowalecki.bnpapi.model;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
-import org.hibernate.annotations.NaturalId;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 
 import javax.persistence.*;
-import java.util.Date;
+import javax.xml.bind.annotation.*;
+import java.math.BigDecimal;
 
-
+@XmlRootElement(name = "Komputery")
+@XmlType(propOrder = {"name", "dateAccounting", "priceUSD", "pricePLN"})
 @Entity
 @Table(name = "computer")
 public class ComputersModel {
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
+    @XmlElement(name = "nazwa")
     @Column(name = "name")
     private String name;
+    @XmlElement(name = "data_ksiegowania")
     @Column(name = "date_accounting")
-    private Date dateAccounting;
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private String dateAccounting;
+    @XmlElement(name = "koszt_USD")
     @Column(name = "price_USD")
-    private float priceUSD;
+    private BigDecimal priceUSD;
+    @XmlElement(name = "koszt_PLN")
     @Column(name = "price_PLN")
-    private float pricePLN;
+    private BigDecimal pricePLN;
 
-    public ComputersModel(int id, String name, Date dateAccounting, float priceUSD, float pricePLN) {
+    public ComputersModel(int id, String name, String dateAccounting, BigDecimal priceUSD, BigDecimal pricePLN) {
         this.id = id;
         this.name = name;
         this.dateAccounting = dateAccounting;
@@ -53,27 +59,27 @@ public class ComputersModel {
         this.name = name;
     }
 
-    public Date getDateAccounting() {
+    public String getDateAccounting() {
         return dateAccounting;
     }
 
-    public void setDateAccounting(Date dateAccounting) {
+    public void setDateAccounting(String dateAccounting) {
         this.dateAccounting = dateAccounting;
     }
 
-    public float getPriceUSD() {
+    public BigDecimal getPriceUSD() {
         return priceUSD;
     }
 
-    public void setPriceUSD(float priceUSD) {
+    public void setPriceUSD(BigDecimal priceUSD) {
         this.priceUSD = priceUSD;
     }
 
-    public float getPricePLN() {
+    public BigDecimal getPricePLN() {
         return pricePLN;
     }
 
-    public void setPricePLN(float pricePLN) {
+    public void setPricePLN(BigDecimal pricePLN) {
         this.pricePLN = pricePLN;
     }
 
